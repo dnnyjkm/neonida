@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Neonida</title>
+<meta name="description" content="Game-style neon GPS navigation.">
+<meta name="theme-color" content="#120a28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Neonida">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Yellowtail&display=swap">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <h1 class="brand">Neonida</h1>
+    <button id="btnUnits" class="chip" type="button" aria-label="Switch units">MPH</button>
+  </header>
+
+  <section id="turnCard" class="turn" aria-live="polite">
+    <div class="turn-icon"><svg id="turnArrow" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 L36 20 H28 V42 H20 V20 H12 Z"/></svg></div>
+    <div class="turn-body">
+      <div id="turnDist" class="turn-dist">No route</div>
+      <div id="turnText" class="turn-text">Search a place or tap the radar to drop a waypoint.</div>
+    </div>
+  </section>
+
+  <div id="radar" class="radar">
+    <div class="radar-disc"><div id="map"></div><div class="scan"></div></div>
+    <svg id="rim" class="rim" viewBox="0 0 200 200" aria-hidden="true"></svg>
+    <div id="northBlip" class="blip north">N</div>
+    <div id="destBlip" class="blip dest" hidden></div>
+    <svg class="player" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L34 35 L20 27 L6 35 Z"/></svg>
+  </div>
+  <p class="credit">© OpenStreetMap contributors · OpenMapTiles · OpenFreeMap · OSRM · Photon</p>
+
+  <section class="hud">
+    <div class="speed"><span id="spd">0</span><small id="spdUnit">MPH</small></div>
+    <div class="info">
+      <div id="street" class="street">Waiting for GPS…</div>
+      <div id="eta" class="eta">Cruise mode</div>
+    </div>
+  </section>
+
+  <nav class="dock">
+    <button id="btnSearch" class="btn primary" type="button">Destination</button>
+    <button id="btnEnd" class="btn" type="button" hidden>End route</button>
+    <button id="btnDemo" class="btn" type="button">Demo drive</button>
+  </nav>
+</div>
+
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <label for="q" class="sr">Search for a place</label>
+      <input id="q" type="search" placeholder="Search a place or address" autocomplete="off" enterkeyhint="search">
+      <button id="btnClose" class="chip" type="button">Close</button>
+    </div>
+    <ul id="results" class="results"></ul>
+    <p class="hint">Tip: close this and tap anywhere on the radar to drop a waypoint.</p>
+  </div>
+</div>
+
+<div id="intro" class="intro">
+  <div class="intro-inner">
+    <div class="intro-logo">Neonida</div>
+    <p class="intro-tag">Your city, rendered like an open-world game.</p>
+    <ul class="intro-rules">
+      <li>Set your destination before you start driving.</li>
+      <li>Mount your phone. Keep your eyes on the road.</li>
+      <li>Directions can be wrong. Road signs and the law come first.</li>
+    </ul>
+    <button id="btnGo" class="btn primary big" type="button">Start GPS</button>
+    <button id="btnGoDemo" class="btn big" type="button">Try a demo drive</button>
+  </div>
+</div>
+
+<div id="banner" class="banner" hidden>
+  <div class="banner-title">Arrived</div>
+  <div id="bannerSub" class="banner-sub"></div>
+</div>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
